@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linha</title>
+    <script>
+        window.onload = inicio;
+        let saida, texto;
+
+        function inicio() {
+            let btn = document.getElementById('botao');
+            btn.addEventListener('click', avalia);
+            saida = document.getElementById('saida');
+        }
+
+        function avalia() {
+            let campo = document.getElementById('linha');
+            texto = campo.value;
+
+            let separado = texto.split("\n");
+            console.log(separado);
+
+            separado.forEach(verificaTipo);
+        }
+
+        function verificaTipo(item) {
+            if(item.startsWith(".")) {
+                itemCheckboxEmpty(item);
+
+            } else if(item.startsWith("x")) {
+                itemCheckboxFull(item);
+
+            } else if(item.startsWith("-")) {
+                itemDel(item);
+
+            } else if(item.startsWith("_")) {
+                itemEm(item);
+            }
+        }
+
+        function itemCheckboxEmpty(item) {
+            saida.innerHTML += `<span class="material-symbols-outlined">check_box_outline_blank</span> `;
+            saida.innerHTML += item.slice(1) + "<br>";
+        }
+
+        function itemCheckboxFull(item) {
+            saida.innerHTML += `<span class="material-symbols-outlined">check_box</span>`;
+            saida.innerHTML += item.slice(1) + "<br>";
+        }
+
+        function itemDel(item) {
+            saida.innerHTML += `<del>${item.slice(1)}</del> <br>`;
+        }
+
+        function itemEm(item) {
+            saida.innerHTML += `<em>${item.slice(1)}</em> <br>`;
+        }
+
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <label for="">Texto:</label><br>
+    <textarea id="linha" rows="6"></textarea><br>
+    <button id="botao">Verificar</button>
+    <div id="saida">
+
+    </div>
+</body>
+
+</html>
